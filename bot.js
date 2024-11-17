@@ -6,39 +6,7 @@ const http = require('http');
 // Remplacez 'YOUR_BOT_TOKEN' par le token de votre bot Telegram
 const bot = new TelegramBot('7612322854:AAFEgdyUlNtBZEW5W-fc9wWrnwtOAubcY94', { polling: true });
 
-// Fonction pour générer une séquence de jeu de mines
-function generateMineSequence() {
-    const emojis = ['💎', '🟫']; // 💎 représente une mine, 🟫 représente une case sûre
-    const rows = 5;
-    const cols = 5;
-    let sequence = '';
-    let totalMineCount = 0;
-
-    // Créer une séquence de 5x5 cases
-    for (let i = 0; i < rows; i++) {
-        for (let j = 0; j < cols; j++) {
-            const isMine = Math.random() < 0.2 && totalMineCount < 5; // 20% de chance d'être une mine
-            if (isMine) {
-                totalMineCount++;
-                sequence += '💎'; // Ajouter une mine
-            } else {
-                sequence += '🟫'; // Ajouter une case sûre
-            }
-        }
-        sequence += '\n'; // Passer à la ligne pour la prochaine rangée
-    }
-
-    // Si le nombre total de mines est inférieur à 4, ajouter des mines supplémentaires à la fin
-    while (totalMineCount < 4) {
-        sequence = sequence.replace('🟫', '💎'); // Remplacer une case sûre par une mine
-        totalMineCount++;
-    }
-
-    return sequence;
-}
-
-// Fonction pour générer une séquence de jeu Apple
-function generateAppleSequence() {
+function generate_sequence() {
     const sequence = ["🟩", "🟩", "🟩", "🟩", "🍎"];
     for (let i = sequence.length - 1; i > 0; i--) {
         const j = random(0, i);
@@ -47,111 +15,68 @@ function generateAppleSequence() {
     return sequence.join(" ");
 }
 
-// Modèles de séquences
-const sequenceTemplateMine = `
-🔔 CONFIRMED ENTRY!
-💣 Mines : 3
-🔐 Attempts: 4
-⏰ Validity: 5 minutes
-`;
-
-const sequenceTemplateApple = `
+// Modèle de séquence
+const sequenceTemplate = `
 🔔 CONFIRMED ENTRY!
 🍎 Apple : 4
-🔐 Attempts: 4
+🔐 Attempts: 5
 ⏰ Validity: 5 minutes
+
 `;
 
-// Fonction pour envoyer une séquence de jeu de mines dans le canal Mine
-function sendSequenceToMineChannel(chatId) {
+// Fonction pour envoyer une séquence dans le canal
+function sendSequenceToChannel(chatId) {
     const sequenceMessage = `
-${sequenceTemplateMine}
-${generateMineSequence()}
+${sequenceTemplate}
+2.41:${generate_sequence()}
+1.93:${generate_sequence()}
+1.54:${generate_sequence()}
+1.23:${generate_sequence()}
 
-🚨 FONCTIONNE UNIQUEMENT SUR 1XBET, MELBET, MEGA PARIS & LINEBET AVEC LE CODE PROMO \`ZFree221\` ✅️ !
-
-[S'inscrire](https://bit.ly/3NJ4vy0)
-[Comment jouer](https://t.me/c/1594256026/1617)
+🚨 WORKS ONLY ON MEGA PARI WITH PROMO CODE PXVIP221 ✅️!
+ 
+[sign up](http://3679504.championglory.in)
+[How to play](https://t.me/c/2275506732/10)
 `;
 
+    // Options du clavier inline
     const inlineKeyboard = {
         inline_keyboard: [
             [
-                { text: 'S\'inscrire', url: 'https://bit.ly/3NJ4vy0' },
-                { text: 'Comment jouer', url: 'https://t.me/c/1594256026/1617' }
-            ]
-        ]
-    };
-
-    try {
-        bot.sendMessage(chatId, sequenceMessage, { parse_mode: 'Markdown', reply_markup: inlineKeyboard })
-            .then(() => console.log('Séquence Mines envoyée avec succès'))
-            .catch(error => console.error(`Erreur lors de l'envoi de la séquence Mines: ${error.message}`));
-    } catch (error) {
-        console.error(`Erreur lors de l'envoi du message: ${error.message}`);
-    }
-}
-
-// Fonction pour envoyer une séquence de jeu Apple dans le canal Apple
-function sendSequenceToAppleChannel(chatId) {
-    const sequenceMessage = `
-${sequenceTemplateApple}
-2.41:${generateAppleSequence()}
-1.93:${generateAppleSequence()}
-1.54:${generateAppleSequence()}
-1.23:${generateAppleSequence()}
-
-🔺️Attention the signal only works on
-\`\`\` Mega pari \n with the promo PXVIP221\`\`\` 
-Guide 👇
-[Tuto in portugais ](https://t.me/c/2035790146/9350)
-`;
-
-    const inlineKeyboard = {
-        inline_keyboard: [
-            [
-                { text: 'Register', url: 'http://3679504.championglory.in' },
+                { text: 'Sign up', url: 'http://3679504.championglory.in' },
                 { text: 'How to play', url: 'https://t.me/c/2275506732/10' }
             ]
         ]
     };
 
-    try {
-        bot.sendMessage(chatId, sequenceMessage, { parse_mode: 'Markdown', reply_markup: inlineKeyboard })
-            .then(() => console.log('Séquence Apple envoyée avec succès'))
-            .catch(error => console.error(`Erreur lors de l'envoi de la séquence Apple: ${error.message}`));
-    } catch (error) {
-        console.error(`Erreur lors de l'envoi du message: ${error.message}`);
-    }
+    const options = {
+        parse_mode: 'Markdown',
+        disable_web_page_preview: true,
+        reply_markup: inlineKeyboard
+    };
+
+    // Envoi du message dans le canal
+    bot.sendMessage(chatId, sequenceMessage, options);
 }
 
-// Planification des signaux pour la session du matin (8h00 - 13h00)
-const scheduledTimesMorning = ['0 8 * * *', '9 10 * * *', '0 12 * * *'];
-scheduledTimesMorning.forEach(time => {
-    schedule.scheduleJob(time, () => {
-        console.log(`Envoi des séquences prévu pour le matin à ${time}`);
-        sendSequenceToMineChannel('-1001594256026'); // Canal Mine ID
-        sendSequenceToAppleChannel('-1002035790146'); // Canal Apple ID
-    });
-});
+// Planification des envois de séquences
+const scheduledTimes = [
+    '0-30/10 8 * * *',    // De 8h00 à 8h30 chaque 10 min
+    '0-30/10 9 * * *',    // De 9h00 à 9h30 chaque 10 min
+    '0-30/10 11 * * *',   // De 11h00 à 11h30 chaque 10 min
+    '0-30/10 13 * * *',   // De 13h00 à 13h30 chaque 10 min
+    '0-30/10 16 * * *',   // De 16h00 à 16h30 chaque 10 min
+    '30-50/5 16 * * *',   // De 16h30 à 16h50 chaque 5 min
+    '0-30/10 19 * * *',   // De 19h00 à 19h30 chaque 10 min
+    '0-30/10 20 * * *',   // De 20h00 à 20h30 chaque 10 min
+    '0-30/15 22 * * *',   // De 22h00 à 22h30 chaque 15 min
+    '0-30/15 23 * * *',   // De 23h00 à 23h30 chaque 15 min
+];
 
-// Planification des signaux pour la session du soir (15h00 - 20h00)
-const scheduledTimesEvening = ['0 15 * * *', '0 17 * * *', '0 19 * * *'];
-scheduledTimesEvening.forEach(time => {
-    schedule.scheduleJob(time, () => {
-        console.log(`Envoi des séquences prévu pour le soir à ${time}`);
-        sendSequenceToMineChannel('-1002271709772'); // Canal Mine ID
-        sendSequenceToAppleChannel('-1002035790146'); // Canal Apple ID
-    });
-});
 
-// Planification des signaux pour la session de nuit (21h00 - 23h00)
-const scheduledTimesNight = ['0 21 * * *', '0 22 * * *', '0 23 * * *'];
-scheduledTimesNight.forEach(time => {
+scheduledTimes.forEach((time) => {
     schedule.scheduleJob(time, () => {
-        console.log(`Envoi des séquences prévu pour la nuit à ${time}`);
-        sendSequenceToMineChannel('-1001594256026'); // Canal Mine ID
-        sendSequenceToAppleChannel('-1002275506732'); // Canal Apple ID
+        sendSequenceToChannel('-1002275506732'); // Remplacez par l'identifiant de votre canal
     });
 });
 
@@ -176,9 +101,9 @@ bot.on('callback_query', (query) => {
     const chatId = query.message.chat.id;
 
     if (query.data === 'voir_la_pomme') {
-        sendSequenceToAppleChannel(chatId);
+        sendSequenceToChannel(chatId);
     } else if (query.data === 'test_message') {
-        sendSequenceToMineChannel(chatId); // Envoi de séquence au canal Mine pour le test
+        sendSequenceToChannel('-1002275506732'); // Envoi de séquence au canal
     }
 });
 
