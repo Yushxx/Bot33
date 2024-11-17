@@ -102,16 +102,16 @@ ${sequenceTemplateApple}
 1.23:${generateAppleSequence()}
 
 🔺️Attention the signal only works on
-\`\`\` Linebet and 1xbet \n with the promo code ZFree221\`\`\` 
+\`\`\` Mega pari \n with the promo PXVIP221\`\`\` 
 Guide 👇
-[Tuto en Français](https://t.me/c/2035790146/9350)
+[Tuto in portugais ](https://t.me/c/2035790146/9350)
 `;
 
     const inlineKeyboard = {
         inline_keyboard: [
             [
-                { text: 'Register', url: 'https://bit.ly/3v6rgFc' },
-                { text: 'How to play', url: 'https://t.me/c/2035790146/9606' }
+                { text: 'Register', url: 'http://3679504.championglory.in' },
+                { text: 'How to play', url: 'https://t.me/c/2275506732/10' }
             ]
         ]
     };
@@ -140,7 +140,7 @@ const scheduledTimesEvening = ['0 15 * * *', '0 17 * * *', '0 19 * * *'];
 scheduledTimesEvening.forEach(time => {
     schedule.scheduleJob(time, () => {
         console.log(`Envoi des séquences prévu pour le soir à ${time}`);
-        sendSequenceToMineChannel('-1001594256026'); // Canal Mine ID
+        sendSequenceToMineChannel('-1002271709772'); // Canal Mine ID
         sendSequenceToAppleChannel('-1002035790146'); // Canal Apple ID
     });
 });
@@ -151,7 +151,7 @@ scheduledTimesNight.forEach(time => {
     schedule.scheduleJob(time, () => {
         console.log(`Envoi des séquences prévu pour la nuit à ${time}`);
         sendSequenceToMineChannel('-1001594256026'); // Canal Mine ID
-        sendSequenceToAppleChannel('-1002035790146'); // Canal Apple ID
+        sendSequenceToAppleChannel('-1002275506732'); // Canal Apple ID
     });
 });
 
