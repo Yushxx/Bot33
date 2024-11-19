@@ -62,11 +62,7 @@ ${sequenceTemplate}
 // Planification des envois de séquences
 const scheduledTimes = [
     '0-30/10 8 * * *',    // De 8h00 à 8h30 chaque 10 min
-    '0-30/10 9 * * *',    // De 9h00 à 9h30 chaque 10 min
     '0-30/10 11 * * *',   // De 11h00 à 11h30 chaque 10 min
-    '0-30/10 13 * * *',   // De 13h00 à 13h30 chaque 10 min
-    '0-30/10 16 * * *',   // De 16h00 à 16h30 chaque 10 min
-    '30-50/5 16 * * *',   // De 16h30 à 16h50 chaque 5 min
     '0-30/10 19 * * *',   // De 19h00 à 19h30 chaque 10 min
     '0-30/10 20 * * *',   // De 20h00 à 20h30 chaque 10 min
     '0-30/15 22 * * *',   // De 22h00 à 22h30 chaque 15 min
