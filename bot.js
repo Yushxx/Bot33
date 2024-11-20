@@ -1,10 +1,9 @@
-require('dotenv').config(); // Charge les variables d'environnement depuis .env
 const TelegramBot = require('node-telegram-bot-api');
 const random = require('lodash/random');
 const schedule = require('node-schedule');
 const http = require('http');
 
-// Récupération des variables sensibles depuis le fichier .env
+// Récupération des variables sensibles depuis l'environnement
 const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
 const channelId = process.env.CHANNEL_ID;
 const signupUrl = process.env.SIGNUP_URL;
@@ -72,7 +71,7 @@ const scheduledTimes = [
 
 scheduledTimes.forEach((time) => {
     schedule.scheduleJob(time, () => {
-        sendSequenceToChannel(channelId); // Utilise l'ID du canal depuis le fichier .env
+        sendSequenceToChannel(channelId); // Utilise l'ID du canal depuis l'environnement
     });
 });
 
