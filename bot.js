@@ -36,7 +36,7 @@ ${sequenceTemplate}
 1.54:${generate_sequence()}
 1.23:${generate_sequence()}
 
-🚨 WORKS ONLY ON MEGA PARI WITH PROMO CODE PXVIP221 ✅️!
+🚨 The signal work only on MEGA PARI with promo code  PXVIP221 ✅️!
  
 [sign up](${signupUrl})
 [How to play](${howToPlayUrl})
