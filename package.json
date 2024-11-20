@@ -1,20 +1,26 @@
-
 {
   "name": "bot33",
   "version": "1.0.0",
-  "description": "Description de votre application",
+  "description": "Un bot Telegram utilisant Node.js",
   "main": "bot.js",
-  
-  "dependencies": {
-    "node-telegram-bot-api": "^0.59.0",
-    "lodash": "^4.17.21",
-    "node-schedule": "^1.3.2"
-  
-
-  },
   "scripts": {
     "start": "node bot.js"
   },
-  "author": "Votre Nom",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "lodash": "^4.17.21",
+    "node-schedule": "^2.1.1",
+    "node-telegram-bot-api": "^0.61.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "keywords": [
+    "telegram",
+    "bot",
+    "nodejs",
+    "schedule"
+  ],
+  "author": "VotreNom",
   "license": "MIT"
 }
