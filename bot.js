@@ -1,10 +1,14 @@
+require('dotenv').config(); // Charge les variables d'environnement depuis .env
 const TelegramBot = require('node-telegram-bot-api');
 const random = require('lodash/random');
 const schedule = require('node-schedule');
 const http = require('http');
 
-// Remplacez 'YOUR_BOT_TOKEN' par le token de votre bot Telegram
-const bot = new TelegramBot('7612322854:AAFEgdyUlNtBZEW5W-fc9wWrnwtOAubcY94', { polling: true });
+// Récupération des variables sensibles depuis le fichier .env
+const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
+const channelId = process.env.CHANNEL_ID;
+const signupUrl = process.env.SIGNUP_URL;
+const howToPlayUrl = process.env.HOW_TO_PLAY_URL;
 
 function generate_sequence() {
     const sequence = ["🟩", "🟩", "🟩", "🟩", "🍎"];
@@ -21,7 +25,6 @@ const sequenceTemplate = `
 🍎 Apple : 4
 🔐 Attempts: 5
 ⏰ Validity: 5 minutes
-
 `;
 
 // Fonction pour envoyer une séquence dans le canal
@@ -35,16 +38,15 @@ ${sequenceTemplate}
 
 🚨 WORKS ONLY ON MEGA PARI WITH PROMO CODE PXVIP221 ✅️!
  
-[sign up](http://3679504.championglory.in)
-[How to play](https://t.me/c/2275506732/10)
+[sign up](${signupUrl})
+[How to play](${howToPlayUrl})
 `;
 
-    // Options du clavier inline
     const inlineKeyboard = {
         inline_keyboard: [
             [
-                { text: 'Sign up', url: 'http://3679504.championglory.in' },
-                { text: 'How to play', url: 'https://t.me/c/2275506732/10' }
+                { text: 'Sign up', url: signupUrl },
+                { text: 'How to play', url: howToPlayUrl }
             ]
         ]
     };
@@ -55,7 +57,6 @@ ${sequenceTemplate}
         reply_markup: inlineKeyboard
     };
 
-    // Envoi du message dans le canal
     bot.sendMessage(chatId, sequenceMessage, options);
 }
 
@@ -69,10 +70,9 @@ const scheduledTimes = [
     '0-30/15 23 * * *',   // De 23h00 à 23h30 chaque 15 min
 ];
 
-
 scheduledTimes.forEach((time) => {
     schedule.scheduleJob(time, () => {
-        sendSequenceToChannel('-1002275506732'); // Remplacez par l'identifiant de votre canal
+        sendSequenceToChannel(channelId); // Utilise l'ID du canal depuis le fichier .env
     });
 });
 
@@ -83,7 +83,7 @@ bot.onText(/\/start/, (msg) => {
         inline_keyboard: [
             [
                 { text: 'Voir la pomme', callback_data: 'voir_la_pomme' },
-                { text: 'Test', callback_data: 'test_message' } // Bouton de test
+                { text: 'Test', callback_data: 'test_message' }
             ]
         ]
     };
@@ -99,7 +99,7 @@ bot.on('callback_query', (query) => {
     if (query.data === 'voir_la_pomme') {
         sendSequenceToChannel(chatId);
     } else if (query.data === 'test_message') {
-        sendSequenceToChannel('-1002275506732'); // Envoi de séquence au canal
+        sendSequenceToChannel(channelId); // Envoi de séquence au canal
     }
 });
 
