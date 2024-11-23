@@ -8,6 +8,8 @@ const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
 const channelId = process.env.CHANNEL_ID;
 const signupUrl = process.env.SIGNUP_URL;
 const howToPlayUrl = process.env.HOW_TO_PLAY_URL;
+const howToPlayUrlB = process.env.HOW_TO_PLAY_URLB;
+
 
 function generate_sequence() {
     const sequence = ["🟩", "🟩", "🟩", "🟩", "🍎"];
@@ -38,7 +40,7 @@ ${sequenceTemplate}
 🚨 The signal work only on MEGA PARI with promo code  PXVIP221 ✅️!
  
 [ouvrir mega pari](${signupUrl})
-[Tuto en Français](${howToPlayUrl2})
+[Tuto en Français](${howToPlayUrlB})
 `;
 
     const inlineKeyboard = {
