@@ -37,8 +37,8 @@ ${sequenceTemplate}
 
 🚨 The signal work only on MEGA PARI with promo code  PXVIP221 ✅️!
  
-[sign up](${signupUrl})
-[How to play](${howToPlayUrl})
+[ouvrir mega pari](${signupUrl})
+[Tuto en Français](${howToPlayUrl2})
 `;
 
     const inlineKeyboard = {
