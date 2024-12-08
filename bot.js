@@ -37,7 +37,7 @@ ${sequenceTemplate}
 1.54:${generate_sequence()}
 1.23:${generate_sequence()}
 
-🚨 The signal work only on MEGA PARI with promo code  PXVIP221 ✅️!
+🚨 The signal work only on Linebet with promo code  PX221 ✅️!
  
 [ouvrir mega pari](${signupUrl})
 [Tuto en Français](${howToPlayUrlB})
