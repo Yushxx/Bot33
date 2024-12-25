@@ -63,13 +63,20 @@ ${sequenceTemplate}
 
 // Planification des envois de séquences
 const scheduledTimes = [
-    '0-30/10 8 * * *',    // De 8h00 à 8h30 chaque 10 min
-    '0-30/10 11 * * *',   // De 11h00 à 11h30 chaque 10 min
-    '0-30/10 19 * * *',   // De 19h00 à 19h30 chaque 10 min
-    '0-30/10 20 * * *',   // De 20h00 à 20h30 chaque 10 min
-    '0-30/15 22 * * *',   // De 22h00 à 22h30 chaque 15 min
-    '0-30/15 23 * * *',   // De 23h00 à 23h30 chaque 15 min
+    '0 10 * * *',   // 10h00 - Matin
+    '0 11 * * *',   // 11h00 - Matin
+    '0 12 * * *',   // 12h00 - Matin avant déjeuner
+    '0 15 * * *',   // 15h00 - Après le déjeuner
+    '0 16 * * *',   // 16h00 - Période active
+    '0 17 * * *',   // 17h00 - Période active
+    '0 19 * * *',   // 19h00 - Début de soirée
+    '0 20 * * *',   // 20h00 - Soirée active
+    '0 21 * * *',   // 21h00 - Soirée active
+    '0 22 * * *',   // 22h00 - Soirée tardive
+    '15 23 * * *',  // 23h15 - Fin de soirée
+    '30 23 * * *',  // 23h30 - Dernier envoi
 ];
+
 
 scheduledTimes.forEach((time) => {
     schedule.scheduleJob(time, () => {
